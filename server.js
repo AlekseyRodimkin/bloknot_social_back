@@ -6,6 +6,7 @@ import mongoose from 'mongoose'
 
 import {
 	acceptRequest,
+	addPhoto,
 	cancelMYRequest,
 	cancelRequest,
 	getAllUser,
@@ -50,6 +51,7 @@ server.post('/upload', upload.single('image'), (req, res) => {
 
 server.post('/auth/login', handleValidatorErrors, login)
 server.post('/auth/register', register)
+server.patch('/users/:id/addphoto', addPhoto)
 server.get('/users/:id', getMe)
 server.get('/users', getAllUser)
 server.patch('/request/add', acceptRequest)
