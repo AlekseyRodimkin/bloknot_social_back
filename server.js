@@ -5,16 +5,20 @@ import handleValidatorErrors from './utils/handleValidatorErrors.js'
 import mongoose from 'mongoose'
 
 import {
+	acceptRequest,
+	cancelMYRequest,
+	cancelRequest,
 	getAllUser,
 	getMe,
 	login,
 	register,
+	sendRequest,
 } from './controllers/UserController.js'
 
 mongoose
 	.connect(
 		'mongodb://127.0.0.1/test_users'
-		// 'mongodb+srv://maxbirimkulov:020599maks@itrunsocial.0y7gues.mongodb.net/?retryWrites=true&w=majority'
+		// 'mongodb+srv://'
 	)
 	.then(() => console.log('Mongo DB успешно запущен'))
 	.catch(err => console.log('Ошибка при запуске Mongo DB ', err))
@@ -48,6 +52,10 @@ server.post('/auth/login', handleValidatorErrors, login)
 server.post('/auth/register', register)
 server.get('/users/:id', getMe)
 server.get('/users', getAllUser)
+server.patch('/request/add', acceptRequest)
+server.patch('/request/cancel', cancelRequest)
+server.patch('/request/mycancel', cancelMYRequest)
+server.patch('/request/:id', sendRequest)
 
 server.listen(PORT, err => {
 	if (err) {
